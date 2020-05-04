@@ -13,7 +13,7 @@
 
     wget https://github.com/BananoCoin/camo-banano-light-wallet/releases/download/[release]/[App.exe]
 
-alternate site
+# alternate site
 
     wget https://coranos.cc/[App.exe]
 
