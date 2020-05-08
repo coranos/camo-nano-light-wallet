@@ -13,7 +13,7 @@ https://github.com/coranos/camo-nano-light-wallet/releases/latest
 ![](https://i.imgur.com/g9l6pB3.png)
 
 5. use seed to log in to the wallet.  
-![](https://i.imgur.com/kbRCh14.png)
+![](https://i.imgur.com/y9UVZsM.png)
 
 6. see the home page, with no pending balance, and no transactions.  
 ![](https://i.imgur.com/kbRCh14.png)
