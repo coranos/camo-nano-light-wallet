@@ -1,4 +1,4 @@
-# camo-banano-light-wallet
+# camo-nano-light-wallet
 
     macOS:
     openssl dgst -sha256 [App.dmg]
@@ -11,7 +11,7 @@
 
 # to download using wget
 
-    wget https://github.com/BananoCoin/camo-banano-light-wallet/releases/download/[release]/[App.exe]
+    wget https://github.com/coranos/camo-nano-light-wallet/releases/download/[release]/[App.exe]
 
 # alternate site
 
