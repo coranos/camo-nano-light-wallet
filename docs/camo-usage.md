@@ -8,6 +8,9 @@ https://github.com/coranos/camo-nano-light-wallet/blob/master/docs/basic-usage.m
 The diagram below shows how the intermediate seed is calculated.  
 ![](https://i.imgur.com/6ZbTKmo.png)
 
+The diagram below shows how the intermediate seed is used to send funds between two accounts withount revealing the owner of the two accounts.
+![](https://i.imgur.com/NLfIYXr.png)
+
 3. on the Send screen, enable camo.
 ![](https://i.imgur.com/1bRMKdu.png)
 
