@@ -34,3 +34,10 @@ The diagram below shows how the intermediate seed is used to send funds between 
 
 10. Refresh, and go to the Receive screen, you should see pending funds.
 ![](https://i.imgur.com/uWbu0If.png)
+
+11. Recieve the pending funds.
+![](https://i.imgur.com/4mB6WDb.png)
+
+12. go to the Send screen and see you now have the funds in the account where you wanted to send funds.
+![](https://i.imgur.com/DBk6eaH.png)
+
