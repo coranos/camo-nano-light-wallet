@@ -1,354 +1,442 @@
 {
   "languages": {
     "en": "English",
-    "es": "Español"
+    "es": "Español",
+    "pt": "Português"
   },
   "title": {
     "en": "Camo Nano",
-    "es": "Nano de Camu"
+    "es": "Nano de Camu",
+    "pt": "Nano Camuflado"
   },
   "home": {
     "en": "Home",
-    "es": "Inicio"
+    "es": "Inicio",
+    "pt": "Início"
   },
   "usingCamoToSendTransaction": {
     "en": "Using Camo To Send Transaction",
-    "es": "Usando Camo Para Enviar Transacciones"
+    "es": "Usando Camo Para Enviar Transacciones",
+    "pt": "Usando Camuflagem Para Enviar Transações"
   },
   "sendingRegularTransaction": {
     "en": "Sending Regular Transaction",
-    "es": "Envío de Transacciones Regulares"
+    "es": "Envío de Transacciones Regulares",
+    "pt": "Enviando Transação Regular"
   },
   "send": {
     "en": "Send",
-    "es": "Enviar"
+    "es": "Enviar",
+    "pt": "Enviar"
   },
   "sendToAccount": {
     "en": "Send To Account",
-    "es": "Enviar A Cuenta"
+    "es": "Enviar A Cuenta",
+    "pt": "Enviar À Conta"
   },
   "receive": {
     "en": "Receive",
-    "es": "Recibir"
+    "es": "Recibir",
+    "pt": "Receber"
   },
   "transactions": {
     "en": "Transactions",
-    "es": "Actas"
+    "es": "Actas",
+    "pt": "Transações"
   },
   "representative": {
     "en": "Representative",
-    "es": "Representante"
+    "es": "Representante",
+    "pt": "Representante"
   },
   "accountBook": {
     "en": "Account Book",
-    "es": "Libro de Cuentas"
+    "es": "Libro de Cuentas",
+    "pt": "Registro da Conta"
   },
   "network": {
     "en": "Network",
-    "es": "Red"
+    "es": "Red",
+    "pt": "Rede"
   },
   "logout": {
     "en": "Logout",
-    "es": "Cerrar Sesión"
+    "es": "Cerrar Sesión",
+    "pt": "Encerrar Sessão"
   },
   "showDevTools": {
     "en": "Show Dev Tools",
-    "es": "Herramientas"
+    "es": "Herramientas",
+    "pt": "Mostrar Ferramentas de Desenvolvedor"
   },
   "ledgerStatus": {
     "en": "Ledger Status",
-    "es": "Estado del libro mayor"
+    "es": "Estado del libro mayor",
+    "pt": "Estado do Registro"
   },
   "seed": {
     "en": "Seed",
-    "es": "Semilla"
+    "es": "Semilla",
+    "pt": "Semente"
   },
   "enterSeedManually": {
     "en": "Enter seed manually.",
-    "es": "Ingrese la semilla manualmente."
+    "es": "Ingrese la semilla manualmente.",
+    "pt": "Digite a semente manualmente."
   },
   "enterSeed": {
     "en": "Enter Seed",
-    "es": "Introducir Semilla"
+    "es": "Introducir Semilla",
+    "pt": "Digitar Semente"
   },
   "reuseSeed": {
     "en": "Reuse Seed",
-    "es": "Reutilizar Semilla"
+    "es": "Reutilizar Semilla",
+    "pt": "Reutilizar Semente"
   },
   "reuseStoredSeed": {
     "en": "Reuse Stored Seed",
-    "es": "Reutilizar Semilla Almacenada"
+    "es": "Reutilizar Semilla Almacenada",
+    "pt": "Reutilizar Semente Armazenada"
   },
   "reuseSeedMessage": {
     "en": "Reuse a seed that you have stored previously.",
-    "es": "Reutilice una semilla que haya almacenado previamente."
+    "es": "Reutilice una semilla que haya almacenado previamente.",
+    "pt": "Reusa uma semente que você armazenou previamente."
   },
   "seedStoragePasswordOptional": {
     "en": "Seed Storage Password (Optional)",
-    "es": "Contraseña de almacenamiento de semillas (opcional)"
+    "es": "Contraseña de almacenamiento de semillas (opcional)",
+    "pt": "Senha de Armazenamento de Semente (Opcional)"
   },
   "storagePasswordOptional": {
     "en": "Storage Password (Optional)",
-    "es": "Contraseña de almacenamiento (opcional)"
+    "es": "Contraseña de almacenamiento (opcional)",
+    "pt": "Senha de Armazenamento (Opcional)"
   },
   "storeSeed": {
     "en": "Store Seed",
-    "es": "Almacenar Semillas"
+    "es": "Almacenar Semillas",
+    "pt": "Armazenar Semente"
   },
   "storeSeedLocallyForReuse": {
     "en": "Store Seed Locally for Reuse",
-    "es": "Almacenar semillas localmente para su reutilización"
+    "es": "Almacenar semillas localmente para su reutilización",
+    "pt": "Armazenar Semente Localmente para Reuso"
   },
   "useSeed": {
     "en": "Use Seed",
-    "es": "Usar Semillas"
+    "es": "Usar Semillas",
+    "pt": "Usar Semente"
   },
   "generateNewSeed": {
     "en": "Generate New Seed",
-    "es": "Generar Nueva Semilla"
+    "es": "Generar Nueva Semilla",
+    "pt": "Gerar Nova Semente"
   },
   "generateNewSeedMessage": {
     "en": "Generate a new seed, to be used in this wallet.",
-    "es": "Genere una nueva semilla para usar en esta billetera."
+    "es": "Genere una nueva semilla para usar en esta billetera.",
+    "pt": "Gera uma nova semente para ser usada nesta carteira."
   },
   "generateSeed": {
     "en": "Generate Seed",
-    "es": "Generar Semilla"
+    "es": "Generar Semilla",
+    "pt": "Gerar Semente"
   },
   "newSeed": {
     "en": "New Seed",
-    "es": "Nueva semilla"
+    "es": "Nueva semilla",
+    "pt": "Nova Semente"
   },
   "copy": {
     "en": "Copy",
-    "es": "Copiar"
+    "es": "Copiar",
+    "pt": "Copiar"
   },
   "done": {
     "en": "Done",
-    "es": "Hecho"
+    "es": "Hecho",
+    "pt": "Feito"
   },
   "camo": {
     "en": "Camo",
-    "es": "Camu"
+    "es": "Camu",
+    "pt": "Camuflagem"
   },
   "enableCamo": {
     "en": "Enable Camo",
-    "es": "Habilitar Camu"
+    "es": "Habilitar Camu",
+    "pt": "Habilitar Camuflagem"
   },
   "disableCamo": {
     "en": "Disable Camo",
-    "es": "Desactivar Camu"
+    "es": "Desactivar Camu",
+    "pt": "Desativar Camuflagem"
   },
   "account": {
     "en": "Account",
-    "es": "Cuenta"
+    "es": "Cuenta",
+    "pt": "Conta"
   },
   "yourPrimaryAccount": {
     "en": "Your Primary Account",
-    "es": "Su cuenta principal"
+    "es": "Su cuenta principal",
+    "pt": "Sua conta principal"
   },
   "yourCamoAccount": {
     "en": "Your Camo Account",
-    "es": "Tu cuenta de camuflaje"
+    "es": "Tu cuenta de camuflaje",
+    "pt": "Sua Conta Camuflada"
   },
   "yourCurrentRepresentative": {
     "en": "Your Current Representative",
-    "es": "Su representante actual"
+    "es": "Su representante actual",
+    "pt": "Seu Representante Atual"
   },
   "yourCamoRepresentative": {
     "en": "Your Camo Representative",
-    "es": "Su representante de camuflaje"
+    "es": "Su representante de camuflaje",
+    "pt": "Seu Representante de Camuflagem"
   },
   "newRepresentative": {
     "en": "New Representative",
-    "es": "Nuevo representante"
+    "es": "Nuevo representante",
+    "pt": "Novo Representante"
   },
   "updateRepresentative": {
     "en": "Update Representative",
-    "es": "Representante de actualización"
+    "es": "Representante de actualización",
+    "pt": "Atualizar Representante"
   },
   "pending": {
     "en": "Pending",
-    "es": "Pendiente"
+    "es": "Pendiente",
+    "pt": "Pendente"
   },
   "camoPending": {
     "en": "Camo Pending",
-    "es": "Camo pendiente"
+    "es": "Camo pendiente",
+    "pt": "Camo Pendente"
   },
   "previousTransactions": {
     "en": "Previous Transactions",
-    "es": "Transacciones Previas"
+    "es": "Transacciones Previas",
+    "pt": "Transações Prévias"
   },
   "total": {
     "en": "total",
-    "es": "total"
+    "es": "total",
+    "pt": "total"
   },
   "blocks": {
     "en": "Blocks",
-    "es": "Bloques"
+    "es": "Bloques",
+    "pt": "Blocos"
   },
   "fromAccount": {
     "en": "From Account",
-    "es": "De la cuenta"
+    "es": "De la cuenta",
+    "pt": "Da Conta"
   },
   "toAccount": {
     "en": "To Account",
-    "es": "A la cuenta"
+    "es": "A la cuenta",
+    "pt": "Para a Conta"
   },
   "sendAmount": {
     "en": "Send Amount",
-    "es": "Enviar cantidad"
+    "es": "Enviar cantidad",
+    "pt": "Enviar Quantidade"
   },
   "pendingBalance": {
     "en": "Pending Balance",
-    "es": "Saldo Pendiente"
+    "es": "Saldo Pendiente",
+    "pt": "Saldo Pendente"
   },
   "camoBalance": {
     "en": "Camo Balance",
-    "es": "Camo Saldo"
+    "es": "Camo Saldo",
+    "pt": "Saldo Camo"
   },
   "camoPendingBalance": {
     "en": "Camo Pending Balance",
-    "es": "Camo Saldo Pendiente"
+    "es": "Camo Saldo Pendiente",
+    "pt": "Saldo Pendente Camo"
   },
   "balance": {
     "en": "Balance",
-    "es": "Saldo"
+    "es": "Saldo",
+    "pt": "Saldo"
   },
   "balanceStatus": {
     "en": "Balance Status",
-    "es": "Estado de saldo"
+    "es": "Estado de saldo",
+    "pt": "Estado do Saldo"
   },
   "sendStatus": {
     "en": "Send Status",
-    "es": "Enviar estado"
+    "es": "Enviar estado",
+    "pt": "Enviar Estado"
   },
   "confirm": {
     "en": "Confirm",
-    "es": "Confirmar"
+    "es": "Confirmar",
+    "pt": "Confirmar"
   },
   "delete": {
     "en": "Delete",
-    "es": "Eliminar"
+    "es": "Eliminar",
+    "pt": "Excluir"
   },
   "addAccount": {
     "en": "Add Account",
-    "es": "Añadir cuenta"
+    "es": "Añadir cuenta",
+    "pt": "Adicionar Conta"
   },
   "newAccount": {
     "en": "New Account",
-    "es": "Nueva cuenta"
+    "es": "Nueva cuenta",
+    "pt": "Nova Conta"
   },
   "addAccountToBook": {
     "en": "Add Account To Book",
-    "es": "Agregar cuenta al libro"
+    "es": "Agregar cuenta al libro",
+    "pt": "Adicionar Conta ao Registro"
   },
   "pleaseWait": {
     "en": "Please Wait",
-    "es": "Por favor espera"
+    "es": "Por favor espera",
+    "pt": "Por Favor Espera"
   },
   "refresh": {
     "en": "Refresh",
-    "es": "Actualizar"
+    "es": "Actualizar",
+    "pt": "Atualizar"
   },
   "noSendToAccountRequestedYet": {
     "en": "No Send-To Account Requested Yet",
-    "es": "Aún no se solicitó una cuenta de envío"
+    "es": "Aún no se solicitó una cuenta de envío",
+    "pt": "Nenhuma Conta de Depósito Requisitada Até Agora"
   },
   "noBalanceRequestedYet": {
     "en": "No Balance Requested Yet",
-    "es": "No se solicitó saldo aún"
+    "es": "No se solicitó saldo aún",
+    "pt": "Nenhum Saldo Requisitado Até Agora"
   },
   "noHistoryRequestedYet": {
     "en": "No History Requested Yet",
-    "es": "Aún no se ha solicitado historia"
+    "es": "Aún no se ha solicitado historia",
+    "pt": "Nenhum Histórico Requisitado Até Agora"
   },
   "noBlockchainStateRequestedYet": {
     "en": "No Blockchain State Requested Yet",
-    "es": "Aún no se ha solicitado el estado de Blockchain"
+    "es": "Aún no se ha solicitado el estado de Blockchain",
+    "pt": "Nenhum Estado de Blockchain Requisitado Até Agora"
   },
   "gettingAccountData": {
     "en": "getting account data.",
-    "es": "obteniendo datos de la cuenta."
+    "es": "obteniendo datos de la cuenta.",
+    "pt": "obtendo dados da conta."
   },
   "openingSecureStorage": {
     "en": "opening secure storage.",
-    "es": "abrir almacenamiento seguro."
+    "es": "abrir almacenamiento seguro.",
+    "pt": "abrindo armazenamento seguro."
   },
   "sendingAmountToAccount": {
     "en": "sending amount to account.",
-    "es": "envío de importe a cuenta."
+    "es": "envío de importe a cuenta.",
+    "pt": "enviando quantidade à conta."
   },
   "gettingTransactionHistory": {
     "en": "getting transaction history.",
-    "es": "obteniendo el historial de transacciones."
+    "es": "obteniendo el historial de transacciones.",
+    "pt": "obtendo histórico de transações."
   },
   "of": {
     "en": "of",
-    "es": "de"
+    "es": "de",
+    "pt": "de"
   },
   ".": {
     "en": ".",
-    "es": "."
+    "es": ".",
+    "pt": "."
   },
   "gettingBlockchainState": {
     "en": "getting blockchain state.",
-    "es": "obteniendo el estado blockchain."
+    "es": "obteniendo el estado blockchain.",
+    "pt": "obtendo estado da blockchain."
   },
   "gettingCamoSharedAccount": {
     "en": "getting camo shared account.",
-    "es": "obtener una cuenta compartida de camuflaje."
+    "es": "obtener una cuenta compartida de camuflaje.",
+    "pt": "obtendo uma conta compartilhada de camuflagem."
   },
   "gettingCamoSharedAccountBalance": {
     "en": "getting camo shared account balance.",
-    "es": "obtener saldo de cuenta compartida de camuflaje."
+    "es": "obtener saldo de cuenta compartida de camuflaje.",
+    "pt": "obtendo saldo da conta compartilhada de camuflagem."
   },
   "gettingCamoPending": {
     "en": "getting camo pending.",
-    "es": "obtener camuflaje pendiente."
+    "es": "obtener camuflaje pendiente.",
+    "pt": "obtendo camuflagem pendente."
   },
   ",": {
     "en": ",",
-    "es": ","
+    "es": ",",
+    "pt": ","
   },
   "rows": {
     "en": "rows",
-    "es": "filas"
+    "es": "filas",
+    "pt": "filas"
   },
   "gettingAccountPending": {
     "en": "getting account pending.",
-    "es": "obtener cuenta pendiente."
+    "es": "obtener cuenta pendiente.",
+    "pt": "obtendo conta pendente."
   },
   "gettingAccountInfo": {
     "en": "getting account info",
-    "es": "obteniendo información de la cuenta"
+    "es": "obteniendo información de la cuenta",
+    "pt": "obtendo informações da conta"
   },
   "sharedAccountInformation": {
     "en": "Shared Account Information",
-    "es": "Información de Cuenta Compartida"
+    "es": "Información de Cuenta Compartida",
+    "pt": "Informação da Conta Compartilhada"
   },
   "firstAccountWithNoTransactions": {
     "en": "First Account With No Transactions",
-    "es": "Primera Cuenta Sin Transacciones"
+    "es": "Primera Cuenta Sin Transacciones",
+    "pt": "Primeira Conta Sem Transações"
   },
   "sendingSharedAccountBalanceToFirstAccountWithNoTransactions": {
     "en": "Sending shared account balance to first account with no transactions.",
-    "es": "Envío del saldo de la cuenta compartida a la primera cuenta sin transacciones."
+    "es": "Envío del saldo de la cuenta compartida a la primera cuenta sin transacciones.",
+    "pt": "Enviando saldo de conta compartilhada para primeira conta sem transações."
   },
   "refreshingAccountData": {
     "en": "Refreshing Account Data.",
-    "es": "Actualización de datos de la cuenta."
+    "es": "Actualización de datos de la cuenta.",
+    "pt": "Atualizando Dados da Conta."
   },
   "sendSharedAccountBalanceToFirstAccountWithNoTransactions": {
     "en": "Send Shared Account Balance To First Account With No Transactions",
-    "es": "Enviar saldo de cuenta compartida a la primera cuenta sin transacciones"
+    "es": "Enviar saldo de cuenta compartida a la primera cuenta sin transacciones",
+    "pt": "Enviar Saldo de Conta Compartilhada à Primeira Conta Sem Transações"
   },
   "bookAccount": {
     "en": "book account",
-    "es": "cuenta de libro"
+    "es": "cuenta de libro",
+    "pt": "conta de registro"
   },
   "seedAccount": {
     "en": "seed account",
-    "es": "cuenta de semillas"
+    "es": "cuenta de semillas",
+    "pt": "conta semente"
   }
 }
