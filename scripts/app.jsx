@@ -516,7 +516,7 @@ class App extends React.Component {
                   </tr>
                   <tr id="update-representative">
                     <td className="lightblue_on_blue h20px darkgray_border bordered">
-                      <div className="gray_on_yellow"><Localization name="newRepresentative"/> (ban_ or camo_)</div>
+                      <div className="gray_on_yellow"><Localization name="newRepresentative"/> (nano_ or camo_)</div>
                       <br/>
                       <LocalizationInput className="monospace no_pad" type="text" size="67" maxLength="65" id="newRepresentative"
                         placeholder="representative"/>
