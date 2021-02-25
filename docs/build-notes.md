@@ -4,13 +4,13 @@
 
 be sure to update package.json to have the same version number!
 
-  git commit -am v1.1.3;
-  git tag v1.1.3;
+  git commit -am v1.1.4;
+  git tag v1.1.4;
   git push;
   git push --tags;
 
 ## to delete release tags
-  git push --delete origin v1.1.3;
-  git tag -d v1.1.3;
+  git push --delete origin v1.1.4;
+  git tag -d v1.1.4;
   git pull;
   git push;

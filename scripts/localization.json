@@ -438,5 +438,10 @@
     "en": "seed account",
     "es": "cuenta de semillas",
     "pt": "conta semente"
+  },
+  "or": {
+    "en": "or",
+    "es": "o",
+    "pt": "ou"
   }
 }
