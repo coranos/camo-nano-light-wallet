@@ -115,9 +115,9 @@ const SendFromSeedIxField = () => {
           validAccountBook.map((item, index) => {
             if (app.getUseCamo()) {
               return (<option key={index}
-                 value={item.seedIx}>[{item.seedIx}]{item.camoAccount} ({item.balance} BAN)</option>)
+                 value={item.seedIx}>[{item.seedIx}]{item.camoAccount} ({item.balance} NANO)</option>)
             } else {
-              return (<option key={index}  value={item.seedIx}>[{item.seedIx}]{item.account} ({item.balance} BAN)</option>)
+              return (<option key={index}  value={item.seedIx}>[{item.seedIx}]{item.account} ({item.balance} NANO)</option>)
             }
           })
         }
@@ -235,7 +235,7 @@ const UseCamoButton = () => {
                      &nbsp;
                     {item.account} &nbsp;
                     0
-                    BAN
+                    NANO
                   </div>
                 </div>
               )
@@ -247,7 +247,7 @@ const UseCamoButton = () => {
                   <Localization name="account"/> &nbsp;
                   {item.account} &nbsp;
                   {item.balance} &nbsp;
-                  BAN
+                  NANO
                   </div>
                   <p></p>
                   <DisableableButton
@@ -656,7 +656,7 @@ class App extends React.Component {
                                     <TransactionHistoryElementIcon item={item}/>{/* item.type */}
                                   </td>
                                   <td className="no_border no_padding">{item.value + ' '}
-                                    BAN</td>
+                                    NANO</td>
                                   <td className="no_border no_padding">
                                     <a href={item.txDetailsUrl} onClick={(e) => onLinkClick(e)}>{item.txHash}</a>
                                   </td>
@@ -695,7 +695,7 @@ class App extends React.Component {
                                       <TransactionHistoryElementIcon item={item}/>{/* item.type */}
                                     </td>
                                     <td className="no_border no_padding">{item.value + ' '}
-                                      BAN</td>
+                                      NANO</td>
                                     <td className="no_border no_padding">
                                       <a href={item.txDetailsUrl} onClick={(e) => onLinkClick(e)}>{item.txHash}</a>
                                     </td>
