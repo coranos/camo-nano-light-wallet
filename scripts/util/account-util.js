@@ -19,7 +19,7 @@ const setAccountDataFromSeed = async (rpcUrl, seed, accountData) => {
     // console.log('setAccountDataFromSeed', seedIx);
     const accountDataElt = {};
     accountDataElt.seedIx = seedIx;
-    accountDataElt.privateKey = nanojsErrorTrap.getPrivateKey(seed, accountDataElt.seedIx);
+    accountDataElt.privateKey = await nanojsErrorTrap.getPrivateKey(seed, accountDataElt.seedIx);
     if (accountDataElt.privateKey) {
       accountDataElt.publicKey = await nanojsErrorTrap.getPublicKey(accountDataElt.privateKey);
       accountDataElt.account = nanojsErrorTrap.getAccount(accountDataElt.publicKey);

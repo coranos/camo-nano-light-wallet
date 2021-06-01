@@ -80,7 +80,7 @@ p {
 }
 
 .w800h600px {
-  width: 750px;
+  width: 790px;
   height: 520px;
 }
 
@@ -96,6 +96,10 @@ p {
   height: 120px;
 }
 
+.h180px {
+  height: 180px;
+}
+
 .h200px {
   height: 200px;
 }
@@ -108,8 +112,8 @@ p {
   height: 310px;
 }
 
-.h300px {
-  height: 300px;
+.h290px {
+  height: 290px;
 }
 
 .h440px {
@@ -124,12 +128,16 @@ p {
   width: 200px;
 }
 
-.w590px {
-  width: 590px;
+.w620px {
+  width: 620px;
 }
 
 .w500px {
   width: 500px;
+}
+
+.w490px {
+  width: 490px;
 }
 
 .w100pct {

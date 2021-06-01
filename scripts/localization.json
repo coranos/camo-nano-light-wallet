@@ -24,6 +24,14 @@
     "es": "Envío de Transacciones Regulares",
     "pt": "Enviando Transação Regular"
   },
+  "ok": {
+    "en": "OK",
+    "es": "OK"
+  },
+  "alert": {
+    "en": "Alert",
+    "es": "Alerta"
+  },
   "send": {
     "en": "Send",
     "es": "Enviar",
@@ -443,5 +451,30 @@
     "en": "or",
     "es": "o",
     "pt": "ou"
+  },
+  "autoRecieve": {
+    "en": "automatically recieve blocks periodically",
+    "es": "recibir automáticamente bloques periódicamente",
+    "pt": "automatically recieve blocks periodically"
+  },
+  "autoRecieving": {
+    "en": "automatically recieving",
+    "es": "recepción automática",
+    "pt": "automatically recieving"
+  },
+  "nextAutoRecieve": {
+    "en": "next auto recieve",
+    "es": "siguiente auto recibir",
+    "pt": "next auto recieve"
+  },
+  "enableAutoRecieve": {
+    "en": "Enable Auto Recieve",
+    "es": "Habilitar Recepción Automática",
+    "pt": "Enable Auto Recieve"
+  },
+  "disableAutoRecieve": {
+    "en": "Disable Auto Recieve",
+    "es": "Desactivar Recepción Automática",
+    "pt": "Disable Auto Recieve"
   }
 }

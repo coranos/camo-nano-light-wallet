@@ -27,6 +27,8 @@ const SEED_LENGTH = 64;
 
 const LOG_LEDGER_POLLING = false;
 
+const LOG_ALERTS = true;
+
 const ACCOUNT_HISTORY_SIZE = 20;
 
 /** networks */
@@ -66,6 +68,10 @@ let sendAmount = '';
 
 let useCamo = undefined;
 
+let useAutoRecieve = undefined;
+
+let autoRecieveCountdown = '';
+
 const camoSharedAccountData = [];
 
 const accountBook = [];
@@ -92,6 +98,8 @@ let blockchainStatus = 'No Blockchain State Requested Yet';
 
 let language = undefined;
 
+let alertMessage = '';
+
 const blockchainState = {
   count: 0,
 };
@@ -110,11 +118,12 @@ const getCleartextConfig = () => {
   return conf;
 };
 
-const init = () => {
+const init = async () => {
   backgroundUtil.setApp(
       {
         hide: hide,
         show: show,
+        showAlert: showAlert,
         renderApp: () => {
           renderApp();
         },
@@ -129,6 +138,12 @@ const init = () => {
   } else {
     useCamo = false;
   }
+  if (conf.has('useAutoRecieve')) {
+    useAutoRecieve = conf.get('useAutoRecieve');
+  } else {
+    useAutoRecieve = false;
+  }
+
   if (conf.has('language')) {
     language = conf.get('language');
   } else {
@@ -151,6 +166,11 @@ const init = () => {
   balanceStatus = getLocalization('noBalanceRequestedYet');
   transactionHistoryStatus = getLocalization('noHistoryRequestedYet');
   blockchainStatus = getLocalization('noBlockchainStateRequestedYet');
+
+  nanojsErrorTrap.setApp(this);
+  nanojsErrorTrap.setNanodeApiUrl(getRpcUrl());
+
+  setTimeout(autoRecieve, getAutoRecieveTimer());
 };
 
 const getCamoRepresentative = () => {
@@ -178,8 +198,8 @@ const setUseCamo = async (_useCamo) => {
     await renderApp();
     await requestCamoPending();
   } catch (error) {
-    console.trace('setUseCamo', JSON.stringify(error));
-    alert(`error updating use camo flag to '${_useCamo}' ` + JSON.stringify(error));
+    mainConsole.trace('setUseCamo', error);
+    showAlert(`error updating use camo flag to '${_useCamo}' ` + error.message);
     updateLocalizedPleaseWaitStatus();
   }
   await renderApp();
@@ -191,8 +211,8 @@ const updateCamoSharedAccount = async () => {
     await requestCamoSharedAccountBalance();
     await requestCamoPending();
   } catch (error) {
-    console.trace('updateCamoSharedAccount', JSON.stringify(error));
-    alert('error updating camo shared account. ' + JSON.stringify(error));
+    mainConsole.trace('updateCamoSharedAccount', error);
+    showAlert('error updating camo shared account. ' + error.message);
     updateLocalizedPleaseWaitStatus();
   }
   renderApp();
@@ -206,29 +226,8 @@ const getCurrentNetwork = () => {
   return NETWORKS[currentNetworkIx];
 };
 
-const getTransactionHistoryUrl = (account) => {
-  const url = `${getCurrentNetwork().EXPLORER}/explorer/account/${account}/history`;
-  // console.log('getTransactionHistoryUrl',url);
-  return url;
-};
-
 const getRpcUrl = () => {
   return getCurrentNetwork().RPC_URL;
-};
-
-const formatDate = (date) => {
-  let month = (date.getMonth() + 1).toString();
-  let day = date.getDate().toString();
-  const year = date.getFullYear();
-
-  if (month.length < 2) {
-    month = '0' + month;
-  };
-  if (day.length < 2) {
-    day = '0' + day;
-  };
-
-  return [year, month, day].join('-');
 };
 
 const requestAllBlockchainData = async () => {
@@ -245,8 +244,8 @@ const requestAllBlockchainData = async () => {
     await requestCamoSharedAccountBalance();
     await requestCamoPending();
   } catch (error) {
-    console.trace('requestAllBlockchainData', error.message);
-    alert('error requesting all blockchain data:' + error.message);
+    mainConsole.trace('requestAllBlockchainData', error);
+    showAlert('error requesting all blockchain data:' + error.message);
     updateLocalizedPleaseWaitStatus();
   }
 };
@@ -255,49 +254,6 @@ const changeNetwork = async (event) => {
   currentNetworkIx = event.target.value;
   await requestAllBlockchainData();
   renderApp();
-};
-
-const postJson = (url, jsonString, readyCallback, errorCallback) => {
-  const xmlhttp = new XMLHttpRequest(); // new HttpRequest instance
-
-  const xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4) {
-      // sendToAccountStatuses.push( `XMLHttpRequest: status:${this.status} response:'${this.response}'` );
-      if (this.status == 200) {
-        readyCallback(JSON.parse(this.response));
-      } else {
-        errorCallback(this.response);
-      }
-    }
-  };
-  xhttp.responseType = 'text';
-  xhttp.open('POST', url, true);
-  xhttp.setRequestHeader('Content-Type', 'application/json');
-
-  // sendToAccountStatuses.push( `XMLHttpRequest: curl ${url} -H "Content-Type: application/json" -d '${jsonString}'` );
-
-  xhttp.send(jsonString);
-};
-
-const getJson = (url, readyCallback, errorCallback) => {
-  const xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4) {
-      if (this.status == 200) {
-        readyCallback(JSON.parse(this.response));
-      } else {
-        errorCallback({
-          'status': this.status,
-          'statusText': this.statusText,
-          'response': this.response,
-        });
-      }
-    }
-  };
-  xhttp.responseType = 'text';
-  xhttp.open('GET', url, true);
-  xhttp.send();
 };
 
 const get = (id) => {
@@ -314,12 +270,6 @@ const hide = (id) => {
 
 const show = (id) => {
   get(id).style = 'display:default;';
-};
-
-const getPublicKeyFromLedger = () => {
-  throw new Error('getPublicKeyFromLedger not completely implemented.');
-  useLedgerFlag = true;
-  isLoggedIn = true;
 };
 
 const requestBlockchainDataAndShowHome = async () => {
@@ -343,7 +293,7 @@ const getAccountDataFromSeed = async () => {
   show('seed');
   const seedElt = appDocument.getElementById('seed');
   if (seedElt.value.length != SEED_LENGTH) {
-    alert(`seed must be a hex encoded string of length ${SEED_LENGTH}, not ${seedElt.value.length}`);
+    showAlert(`seed must be a hex encoded string of length ${SEED_LENGTH}, not ${seedElt.value.length}`);
     return;
   }
   seed = seedElt.value;
@@ -352,7 +302,7 @@ const getAccountDataFromSeed = async () => {
   const storeSeed = storeSeedElt.checked;
   const storeSeedPasswordElt = appDocument.getElementById('storeSeedPassword');
   const storeSeedPassword = storeSeedPasswordElt.value;
-  // alert(`storeSeed:${storeSeed} storeSeedPassword:${storeSeedPassword} `);
+  // showAlert(`storeSeed:${storeSeed} storeSeedPassword:${storeSeedPassword} `);
 
   if (storeSeed) {
     const store = new Store({
@@ -366,7 +316,7 @@ const getAccountDataFromSeed = async () => {
     await requestBlockchainDataAndShowHome();
   } catch (error) {
     mainConsole.trace('getAccountDataFromSeed', error);
-    alert('error getting account data from seed. ' + JSON.stringify(error));
+    showAlert('error getting account data from seed. ' + error.message);
     updateLocalizedPleaseWaitStatus();
   }
 };
@@ -386,15 +336,19 @@ const reuseSeed = async () => {
       clearInvalidConfig: false,
     });
     seed = store.get('seed');
-
-    useLedgerFlag = false;
-    isLoggedIn = true;
-    show('seed');
-    success = true;
+    if (seed == null) {
+      success = false;
+      showAlert('no seed found in seed storage, storage may not have been initialized.');
+    } else {
+      useLedgerFlag = false;
+      isLoggedIn = true;
+      show('seed');
+      success = true;
+    }
   } catch (error) {
     success = false;
-    console.trace('reuseSeed', JSON.stringify(error));
-    alert('cannot open seed storage, check that password is correct. ' + JSON.stringify(error));
+    mainConsole.trace('reuseSeed', error);
+    showAlert('cannot open seed storage, check that password is correct. ' + error.message);
   }
   updateLocalizedPleaseWaitStatus();
   if (success) {
@@ -464,7 +418,6 @@ const updateAmountAndRenderApp = () => {
   updateAmount();
   renderApp();
 };
-
 const sendAmountToAccount = async () => {
   if (backgroundUtil.isUpdateInProgress()) {
     backgroundUtil.showUpdateInProgressAlert();
@@ -519,10 +472,10 @@ const sendAmountToAccount = async () => {
     mainConsole.debug('sendAmountToAccount', message);
     sendToAccountStatuses.push(message);
     updateLocalizedPleaseWaitStatus();
-    alert(message);
+    showAlert(message);
   } catch (error) {
-    console.trace('sendAmountToAccount', error.message);
-    alert('error sending amount to account. ' + error.message);
+    mainConsole.trace('sendAmountToAccount', error);
+    showAlert('error sending amount to account. ' + error.message);
   }
   updateLocalizedPleaseWaitStatus();
   renderApp();
@@ -546,9 +499,6 @@ const requestTransactionHistory = async () => {
     const accountDataElt = accountData[accountDataIx];
     const account = accountDataElt.account;
     const accountHistory = await nanojsErrorTrap.getAccountHistory(account, ACCOUNT_HISTORY_SIZE);
-    // mainConsole.log('requestTransactionHistory', account, accountHistory);
-    // transactionHistoryStatus = accountHistory;
-    // mainConsole.log(transactionHistoryStatus);
     const parsedTransactionHistoryByAccountElt = {};
     parsedTransactionHistoryByAccountElt.account = account;
     parsedTransactionHistoryByAccount.push(parsedTransactionHistoryByAccountElt);
@@ -674,11 +624,12 @@ const hideEverything = () => {
   hide('private-key-generator');
   hide('account-book');
   hide('please-wait');
+  hide('alert');
 };
 
 const copyToClipboard = () => {
   appClipboard.writeText(generatedSeedHex);
-  alert(`copied to clipboard:\n${generatedSeedHex}`);
+  showAlert(`copied to clipboard:\n${generatedSeedHex}`);
 };
 
 const showLogin = () => {
@@ -719,6 +670,7 @@ const showSend = () => {
   show('cancel-confirm-transaction');
   selectButton('send');
 };
+
 
 const showReceive = () => {
   if (!isLoggedIn) {
@@ -817,7 +769,7 @@ const getAccountBook = () => {
       });
     });
   } catch (error) {
-    alert('error getting account book ' + JSON.stringify(error.message));
+    showAlert('error getting account book ' + error.message);
     mainConsole.log('getAccountBook error', error);
   }
   return book;
@@ -843,7 +795,7 @@ const addAccountToBook = () => {
 
     getAccountBook().forEach((bookAccount, bookAccountIx) => {
       if (bookAccount.account == validAccount) {
-        alert('duplicate['+bookAccount.n+']:' + validAccount);
+        showAlert('duplicate['+bookAccount.n+']:' + validAccount);
         duplicate = true;
       }
     });
@@ -852,19 +804,19 @@ const addAccountToBook = () => {
       const store = getCleartextConfig();
       store.set('accountBook', accountBook);
       renderApp();
-      alert('added:'+validAccount);
+      showAlert('added:'+validAccount);
     }
   };
 
   const camoAccountValid = nanojsErrorTrap.getCamoAccountValidationInfo(newBookAccount);
-  // alert(JSON.stringify(camoAccountValid));
+  // showAlert(JSON.stringify(camoAccountValid));
   if (camoAccountValid.valid) {
     try {
       const publicKey = nanojsErrorTrap.getAccountPublicKey(newBookAccount);
       const account = nanojsErrorTrap.getAccount(publicKey);
       pushAndStore(account);
     } catch (error) {
-      alert(error.message);
+      showAlert(error.message);
     }
   } else {
     const accountValid = nanojsErrorTrap.getAccountValidationInfo(newBookAccount);
@@ -872,7 +824,7 @@ const addAccountToBook = () => {
     if (accountValid.valid) {
       pushAndStore(newBookAccount);
     } else {
-      alert(accountValid.message + '\n' + camoAccountValid.message);
+      showAlert(accountValid.message + '\n' + camoAccountValid.message);
     }
   }
 };
@@ -941,12 +893,16 @@ const getLedgerMessage = () => {
   if (ledgerDeviceInfo) {
     if (ledgerDeviceInfo.error) {
       message += 'Error:';
-      if (ledgerDeviceInfo.message) {
-        message += ledgerDeviceInfo.message;
+      message += ledgerDeviceInfo.error;
+    }
+    if (ledgerDeviceInfo.config) {
+      if (ledgerDeviceInfo.config.coinName) {
+        message += ledgerDeviceInfo.config.coinName;
+        message += ' ';
       }
-    } else {
-      if (ledgerDeviceInfo.message) {
-        message += ledgerDeviceInfo.message;
+      if (ledgerDeviceInfo.config.version) {
+        message += ledgerDeviceInfo.config.version;
+        message += ' ';
       }
     }
   }
@@ -1088,7 +1044,7 @@ const receiveCamoPending = async (seedIx, sendToAccount, sharedSeedIx, hash) => 
     const response = await nanojsErrorTrap.receiveCamoDepositsForSeed(seed, seedIx, sendToAccount, sharedSeedIx, hash);
     alert(JSON.stringify(response));
   } catch (error) {
-    alert(JSON.stringify(error));
+    showAlert(error.message);
     mainConsole.debug('receiveCamoPending error', error);
   }
 };
@@ -1218,8 +1174,8 @@ const receivePending = async (hash, seedIx) => {
       alert('no representative, cannot receive pending.');
     }
   } catch (error) {
-    console.trace('receivePending', error.message);
-    alert('error trying to receive pending. ' + error.message);
+    mainConsole.trace('receivePending', error);
+    showAlert('error trying to receive pending. ' + error.message);
   }
   updateLocalizedPleaseWaitStatus();
 };
@@ -1317,11 +1273,10 @@ const sendSharedAccountBalanceToFirstAccountWithNoTransactions = async (ix) => {
     await setAccountDataFromSeed();
     await requestAllBlockchainData();
     updateLocalizedPleaseWaitStatus();
-    alert(message);
+    showAlert(message);
   } catch (error) {
-    console.trace('sendSharedAccountBalanceToFirstAccountWithNoTransactions', JSON.stringify(error));
-    console.trace(error);
-    alert('error refreshing account data. ' + JSON.stringify(error));
+    mainConsole.trace('sendSharedAccountBalanceToFirstAccountWithNoTransactions', error);
+    showAlert('error refreshing account data. ' + error.message);
     updateLocalizedPleaseWaitStatus();
   }
   renderApp();
@@ -1350,16 +1305,16 @@ const updateLocalizedPleaseWaitStatus = (...statusParts) => {
 };
 
 const getLocalization = (key) => {
-  // alert(`${key}, ${isNaN(key)}`);
+  // showAlert(`${key}, ${isNaN(key)}`);
   if (isNaN(key)) {
     const values = localization[key];
     if (values) {
-      // alert(JSON.stringify(values));
+      // showAlert(JSON.stringify(values));
       const value = values[language];
-      // alert(JSON.stringify(value));
+      // showAlert(JSON.stringify(value));
       return value;
     } else {
-      alert(key);
+      showAlert(key);
     }
   } else {
     return key;
@@ -1390,6 +1345,97 @@ const getTotalBalances = () => {
   };
 };
 
+const getAlertMessage = () => {
+  return alertMessage;
+};
+
+const hideAlert = () => {
+  hide('alert');
+  renderApp();
+};
+
+const showAlert = (message) => {
+  if (LOG_ALERTS) {
+    mainConsole.log('showAlert', message);
+  }
+  alertMessage = message;
+  show('alert');
+  renderApp();
+};
+
+const getExampleWorkbookURL = () => {
+  return 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' + exampleWorkbookBase64;
+};
+
+const getUseAutoRecieve = () => {
+  return useAutoRecieve;
+};
+
+const setAutoRecieve = async (_useAutoRecieve) => {
+  useAutoRecieve = _useAutoRecieve;
+  const store = getCleartextConfig();
+  store.set('useAutoRecieve', useAutoRecieve);
+  showAlert('auto recieve set to ' + useAutoRecieve);
+  await renderApp();
+};
+
+const autoRecieve = async () => {
+  // mainConsole.log('autoRecieve', seed, useAutoRecieve, backgroundUtil.isUpdateInProgress());
+  if (seed !== undefined) {
+    if (useAutoRecieve) {
+    // showAlert('timer auto recieve' + useAutoRecieve);
+      if (!backgroundUtil.isUpdateInProgress()) {
+        await requestAllBlockchainData();
+        let item = undefined;
+        let camo = undefined;
+        if (pendingBlocks.length > 0) {
+          item = pendingBlocks[0];
+          camo = false;
+        } else if (camoPendingBlocks.length > 0) {
+          item = camoPendingBlocks[0];
+          camo = true;
+        }
+        if (item !== undefined) {
+          updateLocalizedPleaseWaitStatus('autoRecieving');
+          if (camo) {
+            await receiveCamoPending(item.seedIx, item.sendToAccount, item.sharedSeedIx, item.hash, item.totalRaw);
+          } else {
+            await receivePending(item.hash, item.seedIx);
+          }
+          hideAlert();
+          updateLocalizedPleaseWaitStatus();
+          await requestAllBlockchainData();
+        }
+      }
+    }
+  }
+  renderApp();
+  setTimeout(autoRecieve, getAutoRecieveTimer());
+};
+
+const getAutoRecieveTimer = () => {
+  // every 150 seconds +/- 30 seconds.
+  const timerSeconds = 150 + (Math.random() * 30);
+  const timerMillis = timerSeconds * 1000;
+  const dateNow = Date.now();
+  const coundownMillis = dateNow + timerMillis;
+  autoRecieveCountdown = new Date(coundownMillis).toISOString().replace('T', ' ');
+  // mainConsole.log('getAutoRecieveTimer', timerSeconds, autoRecieveCountdown);
+  return timerMillis;
+};
+
+const getAutoRecieveCountdown = () => {
+  return autoRecieveCountdown;
+};
+
+const requestAllBlockchainDataAndRenderApp = async () => {
+  await requestAllBlockchainData();
+  await renderApp();
+};
+
+exports.getAutoRecieveCountdown = getAutoRecieveCountdown;
+exports.getUseAutoRecieve = getUseAutoRecieve;
+exports.setAutoRecieve = setAutoRecieve;
 exports.getLocalization = getLocalization;
 exports.changeLanguage = changeLanguage;
 exports.getLanguages = getLanguages;
@@ -1399,6 +1445,7 @@ exports.isUpdateInProgress = backgroundUtil.isUpdateInProgress;
 exports.getPleaseWaitStatus = backgroundUtil.getPleaseWaitStatus;
 exports.sendAmountToAccount = sendAmountToAccount;
 exports.requestAllBlockchainData = requestAllBlockchainData;
+exports.requestAllBlockchainDataAndRenderApp = requestAllBlockchainDataAndRenderApp;
 exports.receivePending = receivePending;
 exports.getPending = getPending;
 exports.reuseSeed = reuseSeed;
@@ -1446,4 +1493,7 @@ exports.deleteAccountFromBook = deleteAccountFromBook;
 exports.sendSharedAccountBalanceToFirstAccountWithNoTransactions = sendSharedAccountBalanceToFirstAccountWithNoTransactions;
 exports.changeNetwork = changeNetwork;
 exports.getTotalBalances = getTotalBalances;
+exports.getAlertMessage = getAlertMessage;
+exports.hideAlert = hideAlert;
+exports.showAlert = showAlert;
 exports.init = init;

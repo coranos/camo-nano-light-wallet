@@ -5,8 +5,8 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 const electron = require('electron');
+const remote = require('@electron/remote');
 const shell = electron.shell;
-const remote = electron.remote;
 const clipboard = electron.clipboard;
 
 const Row = require('react-bootstrap').Row;
@@ -14,14 +14,10 @@ const Col = require('react-bootstrap').Col;
 const Grid = require('react-bootstrap').Grid;
 const Table = require('react-bootstrap').Table;
 
-const mainConsoleLib = require('console');
-
 /** modules */
+
 const app = require('./app.js');
 const localization = require('./localization.json');
-
-const mainConsole = new mainConsoleLib.Console(process.stdout, process.stderr);
-mainConsole.debug = () => {};
 
 const openDevTools = () => {
   try {
@@ -31,6 +27,22 @@ const openDevTools = () => {
     alert(`error:${e}`);
   }
 };
+
+const AutoRecieveButton = () => {
+  if (app.getUseAutoRecieve()) {
+    return (
+      <DisableableButton
+        name="disableAutoRecieve"
+        onClick={(e) => app.setAutoRecieve(false)}/>
+    )
+  } else {
+    return (
+      <DisableableButton
+        name="enableAutoRecieve"
+        onClick={(e) => app.setAutoRecieve(true)}/>
+    )
+  }
+}
 
 const BalancesTable = () => {
   const totals = app.getTotalBalances();
@@ -342,7 +354,6 @@ class App extends React.Component {
                   <tr>
                     <td>
                       <Localization name="network"/>
-                      <br/>
                       <select value={app.getCurrentNetworkIx()} name="network"
                         onChange={(e) => app.changeNetwork(e)}
                         disabled={app.isUpdateInProgress()}>
@@ -414,10 +425,10 @@ class App extends React.Component {
               </table>
             </td>
             <td className="valign_top no_border no_padding">
-              <table className="w590px no_border no_padding">
+              <table className="w620px no_border no_padding">
                 <tbody>
                   <tr id="camo-nano-branding" className="no_border no_padding">
-                    <td className="h300px w500px no_border no_padding">
+                    <td className="h290px w490px no_border no_padding">
                       <div className="balance_container">
                         <BalancesTable/>
                       </div>
@@ -527,6 +538,10 @@ class App extends React.Component {
                   </tr>
                   <tr id="pending">
                     <td className="lightblue_on_blue h20px darkgray_border bordered">
+                      <Localization name="autoRecieve"/><br/>
+                      <Localization name="nextAutoRecieve"/>&nbsp;{app.getAutoRecieveCountdown()}<br/>
+                      <AutoRecieveButton/>
+                      <br/>
                       <div className="gray_on_yellow"><Localization name="pending"/></div>
                       <br/>
                       <table className="w100pct no_border whitespace_nowrap">
@@ -821,6 +836,15 @@ class App extends React.Component {
                     <td className="lightblue_on_blue h20px darkgray_border bordered">
                       <div className="display_inline_block"><Localization name="pleaseWait"/>:</div>
                       <div className="display_inline_block">{app.getPleaseWaitStatus()}</div>
+                    </td>
+                  </tr>
+                  <tr id="alert">
+                    <td className="lightblue_on_blue h20px darkgray_border bordered">
+                      <div className="display_inline_block"><Localization name="alert"/>:</div>
+                      <div className="display_inline_block">{app.getAlertMessage()}</div>
+                      <DisableableButton
+                        name="ok"
+                        onClick={(e) =>app.hideAlert()}/>
                     </td>
                   </tr>
                 </tbody>
