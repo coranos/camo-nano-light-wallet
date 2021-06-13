@@ -10,7 +10,7 @@ be sure to update package.json to have the same version number!
   git push --tags;
 
 ## to delete release tags
-  git push --delete origin v1.1.6;
-  git tag -d v1.1.6;
+  git push --delete origin v1.1.7;
+  git tag -d v1.1.7;
   git pull;
   git push;
