@@ -4,8 +4,8 @@
 
 be sure to update package.json to have the same version number!
 
-  git commit -am v1.1.6;
-  git tag v1.1.6;
+  git commit -am v1.1.7;
+  git tag v1.1.7;
   git push;
   git push --tags;
 
